@@ -54,10 +54,22 @@ export default defineConfig({
 
      // 3. PROJECT REGRESSION: Chạy bằng SESSION đã lưu
     {
-      name: 'chromium',
+      name: 'salesOrder',
       testMatch:  /SalesorderList_tcs\.spec\.ts/,
       dependencies: ['setup'], // Chạy sau khi setup xong
       use: {
+        browserName: 'chromium',
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/AdminMNM.json', // Nạp session vào
+      },
+    },
+
+    {
+      name: 'purchaseOrder',
+      testMatch:  'tests/PurchaseOrder/*.spec.ts',
+      dependencies: ['setup'], // Chạy sau khi setup xong
+      use: {
+        browserName: 'chromium',
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/AdminMNM.json', // Nạp session vào
       },
