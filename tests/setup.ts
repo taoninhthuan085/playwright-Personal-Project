@@ -1,11 +1,16 @@
-import { test as setup } from '@playwright/test';
+//import { test as setup } from '@playwright/test';
+import { test as setup} from "../Fixtures/Data_fixture";
+import dotenv from 'dotenv';
+
 
 const ADauthFile = 'playwright/.auth/AdminMNM.json';
 
-setup('Logged in', async ({ page }) => {
-  await page.goto('https://qc.atalink.com.vn/sign-in');
-  await page.fill('#SignIn_username', 'quynhtvn11+11@gmail.com');
-  await page.fill('#SignIn_password', 'Thaytoo02');
+setup('Logged in', async ({ page , appConfig }) => {
+  
+  await page.goto('/sign-in');
+  console.log(page.url());
+  await page.fill('#SignIn_username', appConfig.adminUser);
+  await page.fill('#SignIn_password', appConfig.adminPass);
     await Promise.all([
         page.waitForNavigation(),
         page.click('button[type="submit"]')

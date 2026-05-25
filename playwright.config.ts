@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv  from 'dotenv';
 
+dotenv.config();
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -27,6 +29,9 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
+
+
+    baseURL: process.env.BASE_URL, 
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -67,6 +72,17 @@ export default defineConfig({
     {
       name: 'purchaseOrder',
       testMatch:  'tests/PurchaseOrder/*.spec.ts',
+      dependencies: ['setup'], // Chạy sau khi setup xong
+      use: {
+        browserName: 'chromium',
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/AdminMNM.json', // Nạp session vào
+      },
+    },
+
+    {
+      name: 'procurementCategories',
+      testMatch:  'tests/ProcurementCategories/*.spec.ts',
       dependencies: ['setup'], // Chạy sau khi setup xong
       use: {
         browserName: 'chromium',
