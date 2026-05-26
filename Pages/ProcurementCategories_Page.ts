@@ -36,6 +36,6 @@ export class ProcurementCategoriesPage {
         await this.page.waitForTimeout(500); // time for the dropdown to close (but hard core wait, need to find better solution)
         await expect(this.createButton).toBeEnabled();
         await this.createButton.click();
-        await this.page.waitForTimeout(500);// time for the dropdown to close (but hard core wait, need to find better solution)
+        await this.page.waitForTimeout(500);// time for the dropdown to close (but hard core wait, need to find better solution) Nhung thay fake
     }
 }
