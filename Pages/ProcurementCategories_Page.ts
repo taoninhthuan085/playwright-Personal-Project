@@ -1,4 +1,4 @@
-import { Page , Locator } from '@playwright/test';
+import { Page , Locator, expect } from '@playwright/test';
 import { test } from "../Fixtures/Data_fixture";
 
 export class ProcurementCategoriesPage {
@@ -7,13 +7,13 @@ export class ProcurementCategoriesPage {
     readonly caNameInput : Locator;
     readonly ParentcaNamedropdown : Locator;
     //readonly ParentcaNameInput : Locator;
-    //readonly createButton : Locator;
+    readonly createButton : Locator;
 
     constructor( page : Page) {
         this.page = page;
-        this.caNameInput = page.getByPlaceholder('Nhập tên nhóm sản phẩm mua'); // Sua ddi cha
+        this.caNameInput = page.getByPlaceholder('Nhập tên nhóm sản phẩm mua'); 
         this.ParentcaNamedropdown = page.locator('.ant-select-selector').filter({hasText: /^Nhập tên nhóm sản phẩm cha$/ });
-        //this.ParentcaNameInput = page.getByText('');
+        this.createButton = page.locator('button', { hasText: 'Tạo' });
 
     }
 
@@ -33,8 +33,9 @@ export class ProcurementCategoriesPage {
         await this.caNameInput.fill(categoryName);
         await this.ParentcaNamedropdown.click();
         await this.page.getByText(ParentcategoryName).click();
-       // await this.ParentcaNameInput.getByAltText(ParentcategoryName).click();
-        await this.page.getByRole('button', { name: 'Tạo' }).click();
-
+        await this.page.waitForTimeout(500); // time for the dropdown to close (but hard core wait, need to find better solution)
+        await expect(this.createButton).toBeEnabled();
+        await this.createButton.click();
+        await this.page.waitForTimeout(500);// time for the dropdown to close (but hard core wait, need to find better solution)
     }
 }
