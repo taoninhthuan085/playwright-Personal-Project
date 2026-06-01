@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import staticData from '../Data/Parent_Procurement_Categories.json';
 
@@ -15,7 +15,7 @@ type DataFixtures = {
 };
 
 export const test = base.extend<DataFixtures>({
-  // Fixture tạo user ngẫu nhiên mỗi khi gọi
+  // Fixture tạo nhóm sản phẩm
   dynamicCategory: async ({}, use) => {
     const category = {
 

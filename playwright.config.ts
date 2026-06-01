@@ -91,6 +91,16 @@ export default defineConfig({
       },
     },
 
+    {
+      name: 'API',
+      testMatch: 'tests/API/*.spec.ts',
+      use: { 
+        ...devices['Desktop Chrome'],
+        // Ép buộc không dùng session cũ
+        storageState: { cookies: [], origins: [] } 
+      },
+    },
+
 
     /* Test against mobile viewports. */
     // {
