@@ -1,6 +1,5 @@
 import { test, expect, request } from '@playwright/test';
 import { OrgCategoryApi } from '../../api_src/org_P_CategoryAPI';
-import categoryData from '../../Data/P_Category.json';
 
 test.describe('Delete Org Category API', () => {
   const baseURL = 'https://qc-api.atalink.com.vn';

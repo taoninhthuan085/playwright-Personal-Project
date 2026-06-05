@@ -1,5 +1,5 @@
-import { test, expect } from '../Fixtures/SOpage_fixture';
-import { SalesOrderPage } from '../Pages/SaleaOrder_Page';
+import { test, expect } from '../../Fixtures/SOpage_fixture';
+import { SalesOrderPage } from '../../Pages/SaleaOrder_Page';
 
 
 test('Enter sales order list view successfully', async ({ salesorderpage }) => {
