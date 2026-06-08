@@ -2,6 +2,9 @@
 import { test, expect, request } from '@playwright/test';
 
 test.describe('Org Category API', () => { //group test case
+
+  test.describe.configure({ mode: 'parallel' });
+
   const baseURL = 'https://qc-api.atalink.com.vn';
 
   const token = process.env.ACCESS_TOKEN!;

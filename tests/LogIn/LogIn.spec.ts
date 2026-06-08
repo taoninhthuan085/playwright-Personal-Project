@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../Pages/Log_in_Page';
 
-
+// Group Tcs run parallel (worker = 2)
 test.describe('Parallel', () => { 
 
-     test.describe.configure({ mode: 'parallel' });
+    test.describe.configure({ mode: 'parallel' });
     
     test('TC_LOGIN_001: Log in successfully', async({page}) => {
     const loginpage = new LoginPage(page);
