@@ -22,4 +22,4 @@ PLAYWRIGHT-PERSONAL-PROJECT
 >Page Object Model (POM)  
 <br>
 **Installation**  
->Clone project: git clone 'repository-url'
+Clone project: git clone 'repository-url' 
