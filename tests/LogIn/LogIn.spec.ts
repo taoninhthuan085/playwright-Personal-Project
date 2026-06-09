@@ -22,7 +22,7 @@ test.describe('Parallel', () => {
 
     })
 });
-test('TC_LOGIN_001: Log in successfully', async({page}) => {
+test('TC_LOGIN_002: Log in successfully', async({page}) => {
     const loginpage = new LoginPage(page);
 
     await loginpage.goto();
@@ -30,7 +30,7 @@ test('TC_LOGIN_001: Log in successfully', async({page}) => {
     await expect(page).toHaveURL('https://qc.atalink.com.vn/my-tasks/org_29ca83a5-a9f6-4241-b2c9-a14970ba2370/news');
 
 })
-test('TC_LOGIN_006: Log in with email and wrong password', async({page}) => {
+test('TC_LOGIN_004: Log in with email and wrong password', async({page}) => {
     const loginpage = new LoginPage(page);
 
     await loginpage.goto();
