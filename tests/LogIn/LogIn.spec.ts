@@ -57,3 +57,8 @@ test('TC_LOGIN_010: Log in with empty email and password', async({page}) => {
     await page.goto('/my-tasks/org_29ca83a5-a9f6-4241-b2c9-a14970ba2370/procurement-categories');
     await expect(page.url()).toContain('/sign-in'); 
 })
+test('TC_LOGIN_011S: Log in with empty email and password', async({page}) => {
+    await page.goto('');
+    await page.goto('/my-tasks/org_29ca83a5-a9f6-4241-b2c9-a14970ba2370/procurement-categories');
+    await expect(page.url()).toContain('/sign-in'); 
+})
