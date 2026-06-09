@@ -1,9 +1,22 @@
 name: Playwright Tests
 on:
+
+  # Cấu hình 1: Tự động chạy khi push code
   push:
     branches: [ main, master ]
+
+  # Cấu hình 2: Tự động chay khi Pull Request - PR từ nhánh phụ vào main
   pull_request:
     branches: [ main, master ]
+  
+  # Cấu hình 3: Cho phép bấm nút chạy bằng tay
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: 'Nhập thư mục hoặc Tag cần chạy (Khi bấm bằng tay)'
+        required: true
+        default: 'tests/' # Nếu push code hoặc để mặc định sẽ chạy hết thư mục tests
+  
 jobs:
   test:
     timeout-minutes: 60
@@ -18,7 +31,8 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      # Câu lệnh thông minh: Nếu push code sẽ chạy 'tests/', nếu chạy tay sẽ lấy giá trị bạn nhập
+      run: npx playwright test ${{ github.event.inputs.test_scope || 'tests/' }}
       env:
         WEB_URL: ${{ secrets.WEB_URL}}
         API_URL: ${{ secrets.API_URL}}

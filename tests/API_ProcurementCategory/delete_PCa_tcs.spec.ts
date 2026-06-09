@@ -4,10 +4,10 @@ import { OrgCategoryApi } from '../../api_src/org_P_CategoryAPI';
 test.describe('Delete Org Category API', () => {
   const baseURL = 'https://qc-api.atalink.com.vn';
 
-  const orgId = 'org_29ca83a5-a9f6-4241-b2c9-a14970ba2370';
+  const orgId = 'cat_1780997000557_2cd6bc66-5bbd-4524-ab16-c020dd5a89df';
 
   const categoryId =
-    'cat_1779780953731_769a2b4d-4eec-4e38-abb1-f0014a1de6c5';
+    'cat_1780996598675_dbae99ff-9caf-451e-86eb-70028ad42348';
 
   const token = process.env.ACCESS_TOKEN!;
 
