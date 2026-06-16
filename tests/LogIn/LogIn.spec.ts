@@ -9,7 +9,7 @@ test.describe('Parallel', () => {
     test('TC_LOGIN_001: Log in successfully', async({page}) => {
     const loginpage = new LoginPage(page);
     await loginpage.goto();
-    await loginpage.login(process.env.ADMIN_USER!,process.env.ADMIN_PASS!);
+    await loginpage.login('quynhtvn11+11@gmail.com', "Thaytoo02");
     await expect(page).toHaveURL(/.*news$/);
 
     })
@@ -17,7 +17,7 @@ test.describe('Parallel', () => {
     const loginpage = new LoginPage(page);
 
     await loginpage.goto();
-    await loginpage.login(process.env.ADMIN_USER!,process.env.ADMIN_PASS!);
+    await loginpage.login('quynhtvn11@gmail.com','bbbbbbb');
     await expect(page.getByText('Email hoặc mật khẩu không đúng. Vui lòng thử lại.')).toBeVisible();
 
     })
@@ -34,7 +34,7 @@ test('TC_LOGIN_004: Log in with email and wrong password', async({page}) => {
     const loginpage = new LoginPage(page);
 
     await loginpage.goto();
-    await loginpage.login(process.env.ADMIN_USER!,process.env.ADMIN_PASS!);
+    await loginpage.login('quynhtvn11@gmail.com','bbbbbbb');
     await expect(page.getByText('Email hoặc mật khẩu không đúng. Vui lòng thử lại.')).toBeVisible();
 
 })
