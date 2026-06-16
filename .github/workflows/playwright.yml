@@ -15,7 +15,7 @@ on:
       test_scope:
         description: 'Nhập thư mục hoặc Tag cần chạy (Khi bấm bằng tay)'
         required: true
-        default: 'tests/LogIn/' # Nếu push code hoặc để mặc định sẽ chạy hết thư mục tests
+        default: 'tests/RegressionTest/' # Nếu push code hoặc để mặc định sẽ chạy hết thư mục tests
   
 jobs:
   test:
@@ -32,7 +32,7 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       # Câu lệnh thông minh: Nếu push code sẽ chạy 'tests/', nếu chạy tay sẽ lấy giá trị bạn nhập
-      run: npx playwright test ${{ github.event.inputs.test_scope || 'tests/LogIn/' }}
+      run: npx playwright test ${{ github.event.inputs.test_scope || 'tests/RegressionTest/' }}
       env:
         WEB_URL: ${{ secrets.WEB_URL}}
         API_URL: ${{ secrets.API_URL}}
