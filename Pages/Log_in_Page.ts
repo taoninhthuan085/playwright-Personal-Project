@@ -20,6 +20,9 @@ export class LoginPage{
     async login(UserName: string, PassWord: string){
         await this.usernameInput.fill(UserName);
         await this.passwordInput.fill(PassWord);
-        await this.loginButton.click();
+        await Promise.all([
+            this.page.waitForNavigation(),
+            this.loginButton.click(),
+        ]);
     }
 }
