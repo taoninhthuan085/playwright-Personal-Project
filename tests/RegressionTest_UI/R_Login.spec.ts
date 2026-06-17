@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../Pages/Log_in_Page';
 
+test.use({
+  storageState: { cookies: [], origins: [] }
+});
+
 test('TC_LOGIN_002: Log in successfully', async({page}) => {
     const loginpage = new LoginPage(page);
 

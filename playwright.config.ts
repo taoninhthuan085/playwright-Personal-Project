@@ -102,12 +102,23 @@ export default defineConfig({
     },
 
     {
-      name: 'RegressionTest',
-      testMatch: 'tests/RegressionTest/*.spec.ts',
+      name: 'regression-api',
+      testMatch: 'tests/RegressionTest_API/*.spec.ts',
       use: { 
         ...devices['Desktop Chrome'],
         // Ép buộc không dùng session cũ
         storageState: { cookies: [], origins: [] } 
+      },
+    },
+
+    {
+      name: 'regression-ui',
+      testMatch:  'tests/RegressionTest_UI/*.spec.ts',
+      dependencies: ['setup'], // Chạy sau khi setup xong
+      use: {
+        browserName: 'chromium',
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/AdminMNM.json', // Nạp session vào
       },
     },
     

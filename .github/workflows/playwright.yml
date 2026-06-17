@@ -14,8 +14,13 @@ on:
     inputs:
       test_scope:
         description: 'Nhập thư mục hoặc Tag cần chạy (Khi bấm bằng tay)'
+        type: choice
         required: true
-        default: 'tests/RegressionTest/' # Nếu push code hoặc để mặc định sẽ chạy hết thư mục tests
+        default: regression-ui
+        options:
+          - regression-ui
+          - regression-api
+        
   
 jobs:
   test:
@@ -30,9 +35,13 @@ jobs:
       run: npm ci
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
+    - name: Run Playwright tests RegressionTest_UI
       # Câu lệnh thông minh: Nếu push code sẽ chạy 'tests/', nếu chạy tay sẽ lấy giá trị bạn nhập
-      run: npx playwright test ${{ github.event.inputs.test_scope || 'tests/RegressionTest/' }}
+      run: npx playwright test --project=${{ github.event.inputs.test_scope || 'regression-ui' }}
+
+    - name: Run Playwright tests RegressionTest_API
+      run: npx playwright test --project=${{ github.event.inputs.test_scope || 'regression-api' }}
+
       env:
         WEB_URL: ${{ secrets.WEB_URL}}
         API_URL: ${{ secrets.API_URL}}
