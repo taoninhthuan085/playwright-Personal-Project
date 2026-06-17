@@ -1,12 +1,13 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../Fixtures/auth_fixture';
 import { OrgCategoryApi } from '../../api_src/org_P_CategoryAPI';
 import { OrgCategoryData } from '../../Data/org-category.data';
 
 test.describe('Org Category CRUD', () => {
   test('Create -> Update -> Delete Category', async ({
     request,
+    accessToken,
   }) => {
-    const categoryApi = new OrgCategoryApi(request);
+    const categoryApi = new OrgCategoryApi(request, accessToken);
 
     let categoryId: string | undefined;
 

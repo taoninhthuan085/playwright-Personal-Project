@@ -3,7 +3,10 @@ import { CategoryPayload } from '../models/P_Category.model';
 import { CreateOrgCategoryRequest } from '../models/P_Category/create-org-category.request';
 
 export class OrgCategoryApi {
-  constructor(private request: APIRequestContext) {}
+  constructor(
+    private request: APIRequestContext,
+    private token: string
+  ) {}
 
   private readonly orgId =
     'org_29ca83a5-a9f6-4241-b2c9-a14970ba2370';
@@ -11,7 +14,7 @@ export class OrgCategoryApi {
 
   private get headers() {
     return {
-      authorization: process.env.ACCESS_TOKEN!,
+      authorization: this.token,
       locale: 'vi',
       'content-type': 'application/json',
       tz: '+07:00',

@@ -12,8 +12,8 @@ on:
   # Cấu hình 3: Cho phép bấm nút chạy bằng tay
   workflow_dispatch:
     inputs:
-      test_scope:
-        description: 'Nhập thư mục hoặc Tag cần chạy (Khi bấm bằng tay)'
+      project:
+        description: 'Chọn project cần chạy'
         type: choice
         required: true
         default: regression-ui
@@ -26,6 +26,14 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    env:
+      WEB_URL: ${{ secrets.WEB_URL}}
+      API_URL: ${{ secrets.API_URL}}
+      ADMIN_USER: ${{ secrets.ADMIN_USER}}
+      ADMIN_PASS: ${{ secrets.ADMIN_PASS}}
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
+
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -35,19 +43,22 @@ jobs:
       run: npm ci
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests RegressionTest_UI
-      # Câu lệnh thông minh: Nếu push code sẽ chạy 'tests/', nếu chạy tay sẽ lấy giá trị bạn nhập
-      run: npx playwright test --project=${{ github.event.inputs.test_scope || 'regression-ui' }}
 
-    - name: Run Playwright tests RegressionTest_API
-      run: npx playwright test --project=${{ github.event.inputs.test_scope || 'regression-api' }}
+    # UI
+    - name: Run Regression UI
+      if: |
+        github.event_name != 'workflow_dispatch' ||
+        github.event.inputs.project == 'regression-ui'
+      run: npx playwright test --project=regression-ui
 
-      env:
-        WEB_URL: ${{ secrets.WEB_URL}}
-        API_URL: ${{ secrets.API_URL}}
-        ADMIN_USER: ${{ secrets.ADMIN_USER}}
-        ADMIN_PASS: ${{ secrets.ADMIN_PASS}}
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
+    # API
+    - name: Run Regression API
+      if: |
+        github.event_name != 'workflow_dispatch' ||
+        github.event.inputs.project == 'regression-api'
+      run: npx playwright test --project=regression-api
+
+      
     - uses: actions/upload-artifact@v4
       if: always()
       with:

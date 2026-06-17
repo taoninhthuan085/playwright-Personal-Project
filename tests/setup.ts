@@ -1,5 +1,5 @@
 import { expect} from '@playwright/test';
-import { test as setup} from "../Fixtures/Data_fixture";
+import { test as setup} from "../Fixtures/Data_fixture.ts";
 import dotenv from 'dotenv';
 
 

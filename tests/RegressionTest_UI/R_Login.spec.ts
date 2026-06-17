@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../Pages/Log_in_Page';
 
+
+//storageState is off
 test.use({
   storageState: { cookies: [], origins: [] }
 });

@@ -1,6 +1,6 @@
 import { test as base, expect, Page } from '@playwright/test';
 import { ProcurementCategoriesPage } from '../Pages/ProcurementCategories_Page';
-export { test as dataTest } from '../Fixtures/Data_fixture';
+export { test as dataTest } from './Data_fixture';
 
 type MyFixtures = {
   procurementcategorispage : ProcurementCategoriesPage;
@@ -19,3 +19,4 @@ export const test = base.extend<MyFixtures>({
 });
 
 export { expect };
+

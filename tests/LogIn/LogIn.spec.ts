@@ -9,7 +9,7 @@ import { LoginPage } from '../../Pages/Log_in_Page';
     test('TC_LOGIN_001: Log in successfully', async({page}) => {
     const loginpage = new LoginPage(page);
     await loginpage.goto();
-    await loginpage.login('quynhtvn11+11@gmail.com', "Thaytoo02");
+    await loginpage.login(process.env.ADMIN_USER!,process.env.ADMIN_PASS!);
     await expect(page).toHaveURL(
         /.*news$/,
         { timeout: 30000 }
@@ -51,7 +51,7 @@ test('TC_LOGIN_009: Log out successfully', async({page}) => {
     await loginpage.goto();
     await Promise.all([
         page.waitForNavigation(),
-        await loginpage.login('quynhtvn11+11@gmail.com','Thaytoo02')
+        await loginpage.login(process.env.ADMIN_USER!,process.env.ADMIN_PASS!)
     ]);
     await page.goto('/my-profile');
     await page.getByText('Đăng xuất').click();
