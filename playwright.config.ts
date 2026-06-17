@@ -102,14 +102,15 @@ export default defineConfig({
     },
 
     {
-      name: 'chromium',
-      testMatch: /RegressionTest\.spec\.ts/,
+      name: 'RegressionTest',
+      testMatch: 'tests/RegressionTest/*.spec.ts',
       use: { 
         ...devices['Desktop Chrome'],
         // Ép buộc không dùng session cũ
         storageState: { cookies: [], origins: [] } 
       },
     },
+    
 
 
     /* Test against mobile viewports. */
