@@ -1,5 +1,6 @@
-import { test, expect, request } from '@playwright/test';
+import { test, expect } from '../../Fixtures/auth_fixture';
 import { OrgCategoryApi } from '../../api_src/org_P_CategoryAPI';
+import { OrgCategoryData } from '../../Data/org-category.data';
 
 test.describe('Delete Org Category API', () => {
   const baseURL = 'https://qc-api.atalink.com.vn';
@@ -7,21 +8,17 @@ test.describe('Delete Org Category API', () => {
   const orgId = 'cat_1780997000557_2cd6bc66-5bbd-4524-ab16-c020dd5a89df';
 
   const categoryId =
-    'cat_1780996598675_dbae99ff-9caf-451e-86eb-70028ad42348';
+    'cat_1780980589553_6ac39324-c68c-43eb-8197-42b45ab227c9';
 
   const token = process.env.ACCESS_TOKEN!;
 
-  test('Delete org category successfully', async () => {
-    const apiContext = await request.newContext({
-      baseURL,
-    });
+  test('Delete org category successfully', async ({request, accessToken}) => {
+    
 
-    const categoryApi = new OrgCategoryApi(apiContext);
+    const categoryApi = new OrgCategoryApi(request, accessToken);
 
     const response = await categoryApi.deleteCategory(
-      orgId,
       categoryId,
-      token
     );
 
     expect(response.status()).toBe(200);
@@ -33,33 +30,29 @@ test.describe('Delete Org Category API', () => {
     expect(body).toBeTruthy();
   });
 
-  test('Delete org category without token', async () => {
-    const apiContext = await request.newContext({
-      baseURL,
-    });
+  test('Delete org category without token', async ({
+    request
+  }) => {
+    
 
-    const categoryApi = new OrgCategoryApi(apiContext);
+    const categoryApi = new OrgCategoryApi(request, 'accessToken null');
 
     const response = await categoryApi.deleteCategory(
-      orgId,
       categoryId,
-      ''
     );
 
     expect(response.status()).toBe(401);
   });
 
-  test('Delete non-existing category', async () => {
-    const apiContext = await request.newContext({
-      baseURL,
-    });
+  test('Delete non-existing category', async ({
+    request, 
+    accessToken
+  }) => {
 
-    const categoryApi = new OrgCategoryApi(apiContext);
+    const categoryApi = new OrgCategoryApi(request, accessToken);
 
     const response = await categoryApi.deleteCategory(
-      orgId,
-      'invalid-category-id',
-      token
+      'null'
     );
 
     expect(response.status()).toBeGreaterThanOrEqual(400);

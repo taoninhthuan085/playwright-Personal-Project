@@ -34,7 +34,7 @@ export class OrgCategoryApi {
     );
   }
 
-  async updateCategory2(
+  async updateCategory(
     categoryId: string,
     payload: CreateOrgCategoryRequest
   ) {
@@ -47,7 +47,7 @@ export class OrgCategoryApi {
     );
   }
 
-  async deleteCategory2(categoryId: string) {
+  async deleteCategory(categoryId: string) {
     return await this.request.delete(
       `${this.api_url}/org-procurement/orgs/${this.orgId}/org-categories/${categoryId}?locale=vi`,
       {
@@ -57,44 +57,5 @@ export class OrgCategoryApi {
     );
   }
 
-  //API test riêng (Sẽ sửa lại cho clean)
-  async updateCategory(
-    orgId: string,
-    categoryId: string,
-    payload: CategoryPayload,
-    token: string
-  ): Promise<APIResponse> {
-    return await this.request.put(
-      `/org-procurement/orgs/${orgId}/org-categories/${categoryId}?locale=vi`,
-      {
-        headers: {
-          accept: 'application/json, text/plain, */*',
-          authorization: token,
-          'content-type': 'application/json',
-          locale: 'vi',
-          tz: '+07:00',
-        },
-        data: payload,
-      }
-    );
-  }
 
-  async deleteCategory(
-    orgId: string,
-    categoryId: string,
-    token: string
-  ): Promise<APIResponse> {
-    return await this.request.delete(
-      `/org-procurement/orgs/${orgId}/org-categories/${categoryId}?locale=vi`,
-      {
-        headers: {
-          authorization: token,
-          'content-type': 'application/json',
-          locale: 'vi',
-          tz: '+07:00',
-        },
-        data: {},
-      }
-    );
-  }
 }

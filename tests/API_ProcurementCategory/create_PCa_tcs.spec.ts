@@ -1,5 +1,7 @@
 
-import { test, expect, request } from '@playwright/test';
+import { test, expect } from '../../Fixtures/auth_fixture';
+import { OrgCategoryApi } from '../../api_src/org_P_CategoryAPI';
+import { OrgCategoryData } from '../../Data/org-category.data';
 
 test.describe('Org Category API', () => { //group test case
 
@@ -10,45 +12,25 @@ test.describe('Org Category API', () => { //group test case
 
   const orgId = 'org_29ca83a5-a9f6-4241-b2c9-a14970ba2370';
 
-  test('Create org category successfully', async () => {
-    const apiContext = await request.newContext({
-      baseURL,
-      extraHTTPHeaders: {
-        accept: 'application/json, text/plain, */*',
-        authorization: token,
-        'content-type': 'application/json',
-        locale: 'vi',
-        tz: '+07:00',
-      },
-    });
+  test('Create org category successfully', async ({
+    request,
+    accessToken
+  }) => {
+    const categoryApi = new OrgCategoryApi(request, accessToken);
 
-    const payload = {
-      orgId,
-      name: {
-        vi: `test-${Date.now()}`,
-        en: `test-${Date.now()}`,
-      },
-      desc: {
-        vi: '',
-        en: '',
-      },
-      parentId: '',
-      propertyAccount: null,
-    };
+    const createPayload = OrgCategoryData.createCategory(); 
 
-    const response = await apiContext.post(
-      `/org-procurement/orgs/${orgId}/org-categories?locale=vi`,
-      {
-        data: payload,
-      }
+    const createResponse = await categoryApi.createCategory(
+      createPayload
     );
-    console.log(response);
+
+    console.log(createResponse);
 
     // Verify status
-    expect(response.status()).toBe(201);
+    expect(createResponse.status()).toBe(201);
 
     // Parse response
-    const responseBody = await response.json();
+    const responseBody = await createResponse.json();
 
     console.log('Response:', responseBody);
 
@@ -64,58 +46,41 @@ test.describe('Org Category API', () => { //group test case
     //expect(responseBody.data.orgId).toBe(orgId);
   });
 
-  test('Create org category without token', async () => {
-    const apiContext = await request.newContext({
-      baseURL,
-    });
 
-    const response = await apiContext.post(
-      `/org-procurement/orgs/${orgId}/org-categories?locale=vi`,
-      {
-        data: {
-          orgId,
-          name: {
-            vi: 'test',
-            en: 'test',
-          },
-        },
-      }
+  test('Create org category without token', async ({
+    request,
+    accessToken
+  }) => {
+    const categoryApi = new OrgCategoryApi(request, 'accessToken null');
+
+    const createPayload = OrgCategoryData.createCategory(); 
+    const createResponse = await categoryApi.createCategory(
+      createPayload
     );
-
     // Verify unauthorized
-    expect(response.status()).toBe(401);
+    expect(createResponse.status()).toBe(401);
   });
 
-  test('Create org category with empty name', async () => {
-    const apiContext = await request.newContext({
-      baseURL,
-      extraHTTPHeaders: {
-        authorization: token,
-        'content-type': 'application/json',
-      },
-    });
 
-    const response = await apiContext.post(
-      `/org-procurement/orgs/${orgId}/org-categories?locale=vi`,
-      {
-        data: {
-          orgId,
-          name: {
-            vi: '',
-            en: '',
-          },
-          desc: {
-            vi: '',
-            en: '',
-          },
-        },
-      }
+  test('Create org category with empty name', async ({
+    request,
+    accessToken
+      }) => {
+
+    const categoryApi = new OrgCategoryApi(request, accessToken);
+
+    const createPayload = OrgCategoryData.createCategory(); 
+    createPayload.name.vi = '';
+    createPayload.name.en = '';
+    
+    const createResponse = await categoryApi.createCategory(
+      createPayload
     );
-
+    
     // Validate bad request
-    expect(response.status()).toBeGreaterThanOrEqual(201);
+    expect(createResponse.status()).toBe(400);
 
-    const body = await response.json();
+    const body = await createResponse.json();
 
     console.log(body);
   });

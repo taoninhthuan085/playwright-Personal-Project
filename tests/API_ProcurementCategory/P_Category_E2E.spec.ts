@@ -50,7 +50,7 @@ test.describe('Org Category CRUD', () => {
         OrgCategoryData.updateCategory();
 
       const updateResponse =
-        await categoryApi.updateCategory2(
+        await categoryApi.updateCategory(
           categoryId!,
           updatePayload
         );
@@ -70,7 +70,7 @@ test.describe('Org Category CRUD', () => {
 
       if (categoryId) {
         const deleteResponse =
-          await categoryApi.deleteCategory2(
+          await categoryApi.deleteCategory(
             categoryId
           );
 
