@@ -6,12 +6,6 @@ import { OrgCategoryData } from '../../Data/org-category.data';
 test.describe('Org Category API', () => { //group test case
 
 
-  const baseURL = 'https://qc-api.atalink.com.vn';
-
-  const token = process.env.ACCESS_TOKEN!;
-
-  const orgId = 'org_29ca83a5-a9f6-4241-b2c9-a14970ba2370';
-
   test('Create org category successfully', async ({
     request,
     accessToken
