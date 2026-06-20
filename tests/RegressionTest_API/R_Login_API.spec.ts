@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../Fixtures/auth_fixture';
 import { AuthAPI } from '../../api_src/AuthAPI';
 import { loginData } from '../../Data/Login.data';
 
@@ -17,6 +17,18 @@ test.describe('Login API', () => {
     const body = await response.json();
 
     expect(body.data.access_token).toBeTruthy();
+  });
+
+  test('Logout successfully', async ({ 
+      request, 
+      accessToken 
+    }) => {
+    const authApi = new AuthAPI(request);
+  
+    const response = await authApi.logout(accessToken);
+  
+    console.log(await response.json());
+    expect(response.ok()).toBeTruthy();
   });
 
 });
