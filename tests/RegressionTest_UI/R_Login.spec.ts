@@ -33,9 +33,9 @@ test('TC_LOGIN_009: Log out successfully', async({page}) => {
     await loginpage.goto();
     await Promise.all([
         page.waitForNavigation(),
-        await loginpage.login('quynhtvn11+11@gmail.com','Thaytoo02')
+        loginpage.login('quynhtvn11+11@gmail.com','Thaytoo02')
     ]);
     await page.goto('/my-profile');
     await page.getByText('Đăng xuất').click();
-    await expect(page).toHaveURL('https://qc.atalink.com.vn/sign-in');
+    await expect(page).toHaveURL(/.*sign-in$/);
 })

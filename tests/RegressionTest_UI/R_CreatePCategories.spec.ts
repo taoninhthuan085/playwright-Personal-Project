@@ -21,5 +21,10 @@ dataTest('Create procurement categories successfully', async ({ page , dynamicCa
   
   await procurementcategorispage.procurementCategories_create_Success(dynamicCategory.newCategory, dynamicCategory.parentCategory);
 
-  expect(page).toHaveURL('/my-tasks/org_29ca83a5-a9f6-4241-b2c9-a14970ba2370/procurement-categories');
+  //expect(page).toHaveURL('/my-tasks/org_29ca83a5-a9f6-4241-b2c9-a14970ba2370/procurement-categories');
+
+  await expect(page).toHaveURL(
+        /.*procurement-categories$/,
+        { timeout: 30000 }
+    );
 });
