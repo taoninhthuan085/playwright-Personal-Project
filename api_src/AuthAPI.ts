@@ -23,4 +23,22 @@ export class AuthAPI {
 
     return body.data.access_token;
   }
+
+  async logout(accessToken: string) {
+    const response = await this.request.delete(
+      `${process.env.API_URL}/auth/sign_out?locale=vi`,
+      {
+        headers: {
+          authorization: accessToken,
+          locale: 'vi',
+          'content-type': 'application/json',
+          tz: '+07:00',
+        },
+        data: {},
+      }
+    );
+
+    return response;
+
+  }
 }
